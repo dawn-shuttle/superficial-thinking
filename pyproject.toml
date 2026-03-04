@@ -5,10 +5,13 @@ build-backend = "hatchling.build"
 [project]
 name = "dawn_shuttle_superficial_thinking"
 version = "0.1.0"
-description = "Dawn Shuttle - 基于命名空间包的子项目模板"
+description = "Dawn Shuttle - 基于推理的 LLM 记忆层"
 readme = "README.md"
 license = "LGPL-2.1-or-later"
 requires-python = ">=3.10"
+dependencies = [
+    "dawn_shuttle_intelligence>=0.2.0",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -17,9 +20,6 @@ dev = [
     "mypy==1.14.1",
     "bandit==1.8.3",
 ]
-
-[project.scripts]
-init-project = "init_project:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["dawn_shuttle"]
@@ -38,7 +38,7 @@ line-length = 88
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "RUF"]
-ignore = []
+ignore = ["E501", "RUF001", "RUF002", "RUF003"]  # 忽略行太长和中文标点警告
 
 [tool.ruff.lint.isort]
 known-first-party = ["dawn_shuttle"]
