@@ -297,10 +297,14 @@ class MemoryAgent:
         if "```json" in response:
             start = response.find("```json") + 7
             end = response.find("```", start)
+            if end == -1:
+                end = len(response)
             response = response[start:end].strip()
         elif "```" in response:
             start = response.find("```") + 3
             end = response.find("```", start)
+            if end == -1:
+                end = len(response)
             response = response[start:end].strip()
 
         # 尝试找到 JSON 对象
