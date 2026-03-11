@@ -250,17 +250,33 @@ class MemoryAgent:
                     messages = [Message.user(prompt)]
                     config = GenerateConfig(model=self._model)
                     response = await self._llm.generate(messages, config)
-                    return str(response.text)
+                    # 安全检查 response
+                    if response is None:
+                        raise RuntimeError("LLM returned None response")
+                    # 获取文本
+                    text = getattr(response, "text", None)
+                    if text is None:
+                        # 尝试其他属性
+                        text = getattr(response, "content", None)
+                    if text is None:
+                        # 尝试 str 转换
+                        text = str(response)
+                    return str(text) if text else ""
                 else:
                     # 旧风格：直接传 prompt
                     result = await self._llm.generate(prompt)
+                    if result is None:
+                        raise RuntimeError("LLM returned None result")
                     return str(result)
 
             # 方式2: chat 方法
             elif hasattr(self._llm, "chat"):
                 response = await self._llm.chat([{"role": "user", "content": prompt}])
+                if response is None:
+                    raise RuntimeError("LLM chat returned None response")
                 if hasattr(response, "content"):
-                    return str(response.content)
+                    content = response.content
+                    return str(content) if content else ""
                 return str(response)
 
             else:
