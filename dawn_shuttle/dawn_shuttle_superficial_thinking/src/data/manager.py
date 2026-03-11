@@ -465,7 +465,8 @@ async def initialize(
     llm: "LLM",
     system_prompt: str,
     config: MemoryConfig | None = None,
+    model: str = "deepseek-v3",
 ) -> MemoryManager:
     """初始化记忆管理器的便捷函数"""
-    manager = MemoryManager(llm, system_prompt, config)
+    manager = MemoryManager(llm, system_prompt, config, model)
     return await manager.initialize()
