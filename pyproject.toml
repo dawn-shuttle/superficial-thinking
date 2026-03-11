@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dawn_shuttle_superficial_thinking"
-version = "0.1.2"
+version = "0.1.3"
 description = "Dawn Shuttle - 基于推理的 LLM 记忆层"
 readme = "README.md"
 license = "LGPL-2.1-or-later"
