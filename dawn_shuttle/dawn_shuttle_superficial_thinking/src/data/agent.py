@@ -286,6 +286,10 @@ class MemoryAgent:
 
     def _parse_json_response(self, response: str) -> dict[str, Any]:
         """解析 JSON 响应"""
+        # 空响应检查
+        if not response or not response.strip():
+            raise ValueError("Empty response from LLM")
+        
         # 尝试提取 JSON 块
         response = response.strip()
 
